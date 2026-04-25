@@ -342,6 +342,106 @@ Once the pattern — *assume nothing's happening, compute a test statistic, meas
 
 > **Hypothesis testing is the art of separating signal from noise by asking: "How weird would this data look if nothing interesting were happening?"**
 
+------------------------------
+
+## 17. A p-value (probability value) 
+
+is a number that describes how likely you are to have found your particular set of observations if the null hypothesis were true. [1] 
+It is used as a tool to determine the "statistical significance" of a result. [2, 3] 
+
+------------------------------
+###  Core Concepts
+
+* Definition: The probability of obtaining results at least as extreme as the observed results, assuming the null hypothesis is correct.
+* Range: Always between 0 and 1.
+* The "Surprise" Factor: A low p-value indicates that your data is very "surprising" or unlikely if there were no real effect occurring.
+* The Null Hypothesis ($H_0$): The default assumption that there is no relationship, no difference, or no effect (e.g., "This drug does nothing"). [4, 5, 6, 7, 8] 
+
+------------------------------
+### How to Interpret It
+Most researchers compare the p-value to a pre-defined threshold called alpha ($\alpha$), usually set at 0.05. [9, 10] 
+
+| P-Value [4, 11, 12, 13, 14] | Evidence against Null Hypothesis | Common Action |
+|---|---|---|
+| $\leq 0.05$ | Strong evidence | Reject the null hypothesis (Statistically Significant) |
+| $> 0.05$ | Weak evidence | Fail to reject the null hypothesis (Not Significant) |
+| $\leq 0.01$ | Very strong evidence | Highly significant result |
+
+------------------------------
+### Practical Example: The "Fair Coin" Test
+Imagine you suspect a coin is rigged to land on "Heads."
+
+   1. Null Hypothesis: The coin is fair ($50\%$ heads).
+   2. Experiment: You flip it 10 times and get 10 heads in a row.
+   3. Calculation: The probability of this happening by pure luck with a fair coin is about $0.001$ ($0.1\%$).
+   4. P-Value: $0.001$.
+   5. Conclusion: Since $0.001$ is much smaller than $0.05$, you reject the idea that the coin is fair. [15, 16]
+
+<img width="519" height="529" alt="image" src="https://github.com/user-attachments/assets/2ac2f841-359f-43dd-988c-07ece80e1f8f" />
+<img width="512" height="521" alt="image" src="https://github.com/user-attachments/assets/1ad58e2e-ad0e-4301-8063-0c7081e314ce" />
+<img width="520" height="569" alt="image" src="https://github.com/user-attachments/assets/fe2bc1d9-e74c-4061-acc4-077df350d181" />
+
+------------------------------
+### Common Misconceptions
+
+* It is NOT the probability that the null hypothesis is true.
+* It is NOT the probability that the results were caused by random chance.
+* It does NOT measure the size of the effect (a tiny p-value doesn't mean a "big" result, just a "reliable" one).
+* Significant $\neq$ Important: A result can be statistically significant but have no real-world value. [4, 7, 17, 18, 19] 
+
+------------------------------
+### Visualizing the P-Value
+The p-value represents the area in the tails of a probability distribution curve. If your calculated "test statistic" falls far into the tail, the area (p-value) becomes very small.
+
+<img width="702" height="469" alt="image" src="https://github.com/user-attachments/assets/d10a7208-b55e-4c45-915f-59e6bc8a44b4" />
+
+## P-Hacking 18. 
+
+P-hacking (also known as data dredging) occurs when a researcher manipulates the data or the analysis until a non-significant result ($p > 0.05$) becomes significant ($p \leq 0.05$).
+In the context of the "Fair Coin" test, here is how you could commit P-hacking:
+
+------------------------------
+### 1. The "Sneak Peek" (Early Stopping)
+You decide to flip the coin 20 times. However, you check the results after every flip.
+
+* The Hack: At flip 10, you notice you have 10 heads in a row ($p = 0.001$).
+* The Action: You stop immediately and publish your results as "Significant," ignoring the fact that if you had continued to 20 flips, the "luck" might have evened out.
+* Why it's wrong: You didn't stick to your original plan; you stopped only because the data looked "good" at that specific moment.
+
+------------------------------
+### 2. Selective Reporting (The "File Drawer")
+You want to prove the coin is rigged, but your first experiment fails.
+
+* The Hack: You run the 10-flip experiment 20 different times.
+* The Result: In 19 experiments, the results are normal (e.g., 5 heads, 6 heads). But in the 20th experiment, you happen to get 10 heads by pure random chance.
+* The Action: You only report the one experiment that worked and "hide" the other 19 failures in your "file drawer."
+* Why it's wrong: Statistically, if you run enough tests, a "rare" event will eventually happen by luck. Reporting only the lucky one is dishonest.
+
+------------------------------
+### 3. Changing the Goalposts (Post-hoc Analysis)
+You start the experiment to see if the coin is biased toward Heads.
+
+* The Hack: You get 8 tails instead. This isn't significant for "Heads" ($p > 0.05$).
+* The Action: You change your hypothesis after seeing the data to: "I was actually testing if the coin was biased toward Tails or just Biased in general."
+* Why it's wrong: You are fitting your theory to the data, rather than testing a theory with data.
+
+------------------------------
+### 4. Excluding "Outliers"
+
+* The Hack: You flip the coin 10 times, but on the 4th flip, it lands on Tails.
+* The Action: You say, "Oh, a gust of wind hit the coin on that 4th flip, so that one doesn't count," and you remove it from the data to keep your "streak" of heads alive.
+* Why it's wrong: You are removing data points just because they don't support your desired conclusion.
+
+------------------------------
+### Summary of P-Hacking
+
+| Traditional Science | P-Hacking |
+|---|---|
+| Set a plan $\rightarrow$ Collect data $\rightarrow$ Analyze | Collect data $\rightarrow$ Analyze $\rightarrow$ Tweak plan $\rightarrow$ Re-analyze |
+| Reports all findings | Reports only significant findings |
+| Aiming for the truth | Aiming for $p < 0.05$ |
+
+---
 ---
 
 *This document covers the theory of classical (frequentist) hypothesis testing. For worked examples demonstrating these concepts on real problems, see the problems in this folder.*
